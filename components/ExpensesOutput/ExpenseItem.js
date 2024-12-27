@@ -2,11 +2,19 @@ import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 import { getFormattedDate } from "../../util/data";
+import { useNavigation } from "@react-navigation/native";
 
 const ExpenseItem = ({ description, amount, date }) => {
+  const navigation = useNavigation();
+
   function expressPressHandler() {
     // this will manage so that we redirect into the manage expense screen
-    // keep in mind that this component is not a screen component
+    // keep in mind that this component is not a screen component so we will need to use useNavigation
+    // from react-navigation to get the navigation object
+    // and navigate to the ManageExpenses screen with the expense data
+    navigation.navigate("ManageExpenses", {
+      expense: { description, amount, date },
+    });
   }
 
   return (
