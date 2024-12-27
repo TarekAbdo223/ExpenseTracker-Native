@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import IconButton from "../components/UI/IconButton";
 import { GlobalStyles } from "../constants/styles";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import Button from "../components/UI/Button";
 
 const ManageExpenses = ({ route, navigation }) => {
   const editedExpenseId = route.params?.expenseId;
@@ -20,8 +21,18 @@ const ManageExpenses = ({ route, navigation }) => {
     console.log("deleteee");
   }
 
+  function cancelHandler() {}
+  function confirmHandler() {}
   return (
     <View style={styles.container}>
+      <View style={styles.buttons}>
+        <Button mode="flat" onPress={cancelHandler} style={styles.button}>
+          Cancel
+        </Button>
+        <Button style={styles.button} onPress={confirmHandler}>
+          {isEditing ? "Update" : "Add"}
+        </Button>
+      </View>
       {isEditing && (
         <View style={styles.deleteContainer}>
           <IconButton
@@ -45,10 +56,19 @@ const styles = StyleSheet.create({
     backgroundColor: GlobalStyles.colors.primary800,
   },
   deleteContainer: {
-    marginTop: 60,
+    marginTop: 24,
     paddingTop: 8,
     borderTopWidth: 2,
     borderTopColor: GlobalStyles.colors.primary200,
     alignItems: "center",
+  },
+  buttons: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  button: {
+    minWidth: 120,
+    marginHorizontal: 8,
   },
 });
