@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import ExpensesSummary from "./ExpensesSummary";
 import ExpensesList from "./ExpensesList";
 import { GlobalStyles } from "../../constants/styles";
+import { ExpensesContext } from "../../store/expenses-context";
 
-const ExpensesOutput = ({ expensesPeriod }) => {
+const ExpensesOutput = ({ expensesPeriod, expenses }) => {
   return (
     <View style={styles.container}>
-      <ExpensesSummary expenses={DUMMY_EXPENSES} periodName={expensesPeriod} />
-      <ExpensesList expenses={DUMMY_EXPENSES} />
+      <ExpensesSummary expenses={expenses} periodName={expensesPeriod} />
+      <ExpensesList expenses={expenses} />
     </View>
   );
 };
