@@ -120,6 +120,7 @@ export const ExpensesContextProvider = ({ children }) => {
 
   const value = {
     expenses: expensesState,
+    // keep in mind that expensesState is the one that change whenever the state changes => this is the new one***
     addExpense,
     deleteExpense,
     updateExpense,
