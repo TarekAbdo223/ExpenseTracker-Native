@@ -4,7 +4,7 @@ import { Text, TextInput, View } from "react-native";
 const Input = ({ label, textInputConfig }) => {
   return (
     <View>
-      <Text>Label</Text>
+      <Text>{label}</Text>
       <TextInput {...textInputConfig} />
     </View>
   );
