@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import Input from "./Input";
 import Button from "../UI/Button";
 
-const ExpenseForm = ({ isEditing, onCancel }) => {
+const ExpenseForm = ({ isEditing, onCancel, onSubmit }) => {
   const [inputValues, setInputValues] = useState({
     amount: "",
     date: "",
@@ -22,6 +22,12 @@ const ExpenseForm = ({ isEditing, onCancel }) => {
   function submitHandler() {
     // submit the form
     console.log("Submitting form", inputValues);
+    const expenseData = {
+      amount: +inputValues.amount,
+      date: new Date(inputValues.date),
+      description: inputValues.description,
+    };
+    onSubmit(expenseData);
   }
 
   return (
