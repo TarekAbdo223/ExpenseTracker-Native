@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Input from "./Input";
 import Button from "../UI/Button";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
+import { getFormattedDate } from "../../util/data";
 
-const ExpenseForm = ({ isEditing, onCancel, onSubmit }) => {
+const ExpenseForm = ({ isEditing, onCancel, onSubmit, defaultValues }) => {
+  console.log(defaultValues.date.toISOString().slice(0, 10));
+  console.log(getFormattedDate(defaultValues.date));
+
   const [inputValues, setInputValues] = useState({
-    amount: "",
-    date: "",
-    description: "",
+    amount: defaultValues ? defaultValues.amount.toString() : "",
+    date: defaultValues ? getFormattedDate(defaultValues.date) : "",
+    description: defaultValues ? defaultValues.description : "",
   }); // the value on any input will be always string alwaysssssss
 
   function inputChangeHandler(inputIdentifier, enteredAmount) {
@@ -47,10 +52,10 @@ const ExpenseForm = ({ isEditing, onCancel, onSubmit }) => {
           style={styles.rowInput}
           label="Date"
           textInputConfig={{
-            placeholder: "YYY-MM-DD",
+            placeholder: "YYYY-MM-DD",
             maxLenght: 10,
             onChangeText: inputChangeHandler.bind(this, "date"),
-            value: inputValues.data,
+            value: inputValues.date,
           }}
         />
       </View>

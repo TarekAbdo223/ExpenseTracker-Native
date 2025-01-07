@@ -16,6 +16,10 @@ const ManageExpenses = ({ route, navigation }) => {
   // if editedExpenseId is undefined so we trying to add a new one
   const isEditing = !!editedExpenseId; // this means to manage and make any value a Boolean
 
+  const selectedExpense = expensesCtx.expenses.find(
+    (expense) => expense.id === editedExpenseId
+  );
+
   useLayoutEffect(() => {
     navigation.setOptions({
       title: isEditing ? "Edit Expense" : "Add Expense",
@@ -45,6 +49,7 @@ const ManageExpenses = ({ route, navigation }) => {
         onCancel={cancelHandler}
         isEditing={isEditing}
         onSubmit={confirmHandler}
+        defaultValues={selectedExpense}
       />
 
       {isEditing && (
