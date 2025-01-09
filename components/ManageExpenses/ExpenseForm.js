@@ -4,20 +4,21 @@ import Input from "./Input";
 import Button from "../UI/Button";
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 import { getFormattedDate } from "../../util/data";
+import { GlobalStyles } from "../../constants/styles";
 
 const ExpenseForm = ({ isEditing, onCancel, onSubmit, defaultValues }) => {
   const [inputs, setInputs] = useState({
     amount: {
       value: defaultValues ? defaultValues.amount.toString() : "",
-      isValid: !!defaultValues,
+      isValid: true,
     },
     date: {
       value: defaultValues ? getFormattedDate(defaultValues.date) : "",
-      isValid: !!defaultValues,
+      isValid: true,
     },
     description: {
       value: defaultValues ? defaultValues.description : "",
-      isValid: !!defaultValues,
+      isValid: true,
     },
   }); // the value on any input will be always string alwaysssssss
 
@@ -31,8 +32,6 @@ const ExpenseForm = ({ isEditing, onCancel, onSubmit, defaultValues }) => {
   }
 
   function submitHandler() {
-    // submit the form
-    console.log("Submitting form", inputValues);
     const expenseData = {
       amount: +inputs.amount.value,
       date: new Date(inputs.date.value),
@@ -54,6 +53,7 @@ const ExpenseForm = ({ isEditing, onCancel, onSubmit, defaultValues }) => {
           },
         };
       });
+      return; // Stop submission if invalid
     }
 
     onSubmit(expenseData);
@@ -76,6 +76,7 @@ const ExpenseForm = ({ isEditing, onCancel, onSubmit, defaultValues }) => {
             onChangeText: inputChangeHandler.bind(this, "amount"),
             value: inputs.amount.value,
           }}
+          inValid={!inputs.amount.isValid}
         />
         <Input
           style={styles.rowInput}
@@ -86,6 +87,7 @@ const ExpenseForm = ({ isEditing, onCancel, onSubmit, defaultValues }) => {
             onChangeText: inputChangeHandler.bind(this, "date"),
             value: inputs.date.value,
           }}
+          inValid={!inputs.date.isValid}
         />
       </View>
       <Input
@@ -95,9 +97,12 @@ const ExpenseForm = ({ isEditing, onCancel, onSubmit, defaultValues }) => {
           onChangeText: inputChangeHandler.bind(this, "description"),
           value: inputs.description.value,
         }}
+        inValid={!inputs.description.isValid}
       />
       {formIsValid && (
-        <Text>Invalid Inputs - please check your entered data!</Text>
+        <Text style={styles.error}>
+          Invalid Inputs - please check your entered data!
+        </Text>
       )}
       <View style={styles.buttons}>
         <Button mode="flat" onPress={onCancel} style={styles.button}>
@@ -139,5 +144,10 @@ const styles = StyleSheet.create({
   button: {
     minWidth: 120,
     marginHorizontal: 8,
+  },
+  error: {
+    textAlign: "center",
+    color: GlobalStyles.colors.error500,
+    margin: 8,
   },
 });
