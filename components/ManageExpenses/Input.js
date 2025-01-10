@@ -8,7 +8,6 @@ const Input = ({ label, textInputConfig, style, inValid }) => {
   if (textInputConfig && textInputConfig.multiline) {
     inputStyles.push(styles.inputMultiLine);
   }
-  console.log(inValid, "hththththth");
 
   if (inValid) {
     inputStyles.push(styles.inValidInput);

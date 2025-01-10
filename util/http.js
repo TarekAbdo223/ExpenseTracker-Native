@@ -12,16 +12,15 @@ export function storeExpense(expenseData) {
 }
 
 export async function fetchExpenses() {
-  const response = await axios.get(BACKEND_URL + "expenses.json");
+  const response = await axios.get(BACKEND_URL + "/expense.json");
 
   const expenses = [];
-  console.log(response.data, "getExpenses");
 
   for (const key in response.data) {
     const expenseObj = {
       id: key,
       amount: response.data[key].amount,
-      date: response.data[key].date,
+      date: new Date(response.data[key].date), // Convert to Date object
       description: response.data[key].description,
     };
     expenses.push(expenseObj);

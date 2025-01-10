@@ -10,7 +10,6 @@ import { storeExpense } from "../util/http";
 
 const ManageExpenses = ({ route, navigation }) => {
   const expensesCtx = useContext(ExpensesContext);
-  console.log(route, "route");
 
   const editedExpenseId = route.params?.expenseId;
 
@@ -28,7 +27,6 @@ const ManageExpenses = ({ route, navigation }) => {
   }, [isEditing, navigation]);
 
   function deleteExpenseHandler() {
-    console.log("deleteee");
     expensesCtx.deleteExpense(editedExpenseId);
     navigation.goBack();
   }
