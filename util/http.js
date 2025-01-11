@@ -2,13 +2,15 @@ import axios from "axios";
 
 const BACKEND_URL = "https://expense-native-1ed53-default-rtdb.firebaseio.com";
 
-export function storeExpense(expenseData) {
+export async function storeExpense(expenseData) {
   console.log("fetchinddddd", expenseData);
 
-  axios.post(
+  const response = await axios.post(
     BACKEND_URL + "/expense.json",
     expenseData // firebase creates a random unique id
   );
+  const id = response.data.name;
+  return id;
 }
 
 export async function fetchExpenses() {
